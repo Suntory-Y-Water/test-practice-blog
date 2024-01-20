@@ -1,17 +1,18 @@
 import React from 'react';
+
+import { Article } from '@/app/types';
+
 import ArticleCard from './ArticleCard';
-import { Article } from '../types';
 
 type ArticleListProps = {
   articles: Article[];
-  baseUrl: string;
 };
 
-const ArticleList = ({ articles, baseUrl }: ArticleListProps) => {
+const ArticleList = ({ articles }: ArticleListProps) => {
   return (
     <div>
       {articles.map((article) => (
-        <ArticleCard article={article} baseUrl={baseUrl} key={article.id} />
+        <ArticleCard article={article} key={article.id} />
       ))}
     </div>
   );

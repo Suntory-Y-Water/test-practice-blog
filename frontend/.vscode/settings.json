@@ -1,7 +1,21 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": true
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescriptreact]": {},
+  "[typescript]": {},
+  "[jsonc]": {},
+  "[javascript]": {},
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": false
+  },
+  "[ejs]": {
+    "editor.formatOnSave": false
   }
 }
