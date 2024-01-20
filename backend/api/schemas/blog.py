@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, constr
 from datetime import datetime
 import uuid
 
@@ -8,8 +8,8 @@ class BlogBase(BaseModel):
     ブログのベーススキーマ
     """
 
-    title: str = Field(..., example="ブログのタイトル")
-    content: str = Field(..., example="ブログの内容")
+    title: constr(min_length=1) = Field(..., example="ブログのタイトル")
+    content: constr(min_length=1) = Field(..., example="ブログの内容")
 
 
 class BlogCreate(BlogBase):

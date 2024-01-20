@@ -1,7 +1,9 @@
+from uuid import UUID
 from api.db import get_db
-import api.cruds.blog as blog_crud
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi import Response, status
+import api.cruds.blog as blog_crud
 import api.schemas.blog as schema
 
 router = APIRouter()
@@ -16,14 +18,14 @@ async def read_all_blogs(db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/python/blog/{blog_id}", response_model=schema.Blog)
-async def read_blog(blog_id: str, db: AsyncSession = Depends(get_db)):
+async def read_blog(blog_id: UUID, db: AsyncSession = Depends(get_db)):
     """
     個別のブログを取得する
     """
-    if blog_id is None:
+    blog = await blog_crud.get_blog_by_id(db, blog_id)
+    if blog is None:
         raise HTTPException(status_code=404, detail="Blog not found")
-
-    return await blog_crud.get_blog_by_id(db, blog_id)
+    return blog
 
 
 @router.post("/python/blog", response_model=schema.BlogCreateResponse)
@@ -35,10 +37,16 @@ async def create_blog(blog_body: schema.BlogCreate, db: AsyncSession = Depends(g
 
 
 @router.delete("/python/blog/{blog_id}", response_model=None)
-async def delete_blog(blog_id: str, db: AsyncSession = Depends(get_db)):
+async def delete_blog(blog_id: UUID, db: AsyncSession = Depends(get_db)):
     """
     ブログを削除する。
     """
-    if blog_id is None:
+    existing_blog = await blog_crud.get_blog_by_id(db, blog_id)
+    if existing_blog is None:
         raise HTTPException(status_code=404, detail="Blog not found")
-    return await blog_crud.delete_blog(db, blog_id)
+
+    # 存在する場合は削除を実行
+    await blog_crud.delete_blog(db, blog_id)
+
+    # 削除が成功したことを示すHTTPステータスコードを返す
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
