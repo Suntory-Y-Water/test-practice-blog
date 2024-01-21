@@ -1,0 +1,19 @@
+# config
+.eslintrc.js
+prettier.config.js
+next.config.js
+tailwind.config.js
+tsconfig.json
+postcss.config.js
+jest.config.js
+jest.setup.js
+
+# build dir
+build/
+bin/
+obj/
+out/
+.next/
+
+__tests__/
+coverage/

@@ -1,31 +1,72 @@
+const { off } = require('process');
+
+/** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-  ],
-  overrides: [
-    {
-      env: {
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
-      },
-    },
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'next/core-web-vitals',
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+    project: './tsconfig.json',
   },
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ['import', '@typescript-eslint'],
+  root: true,
   rules: {
-    'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          ['parent', 'sibling'],
+          'object',
+          'type',
+          'index',
+        ],
+        'newlines-between': 'always',
+        pathGroupsExcludedImportTypes: ['builtin'],
+        pathGroups: [
+          {
+            pattern: '@/utils/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: '@/libs/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: '@/hooks/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: '@/components/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: '@/const/**',
+            group: 'internal',
+            position: 'before',
+          },
+          {
+            pattern: '@/types/**',
+            group: 'internal',
+            position: 'before',
+          },
+        ],
+        alphabetize: {
+          order: 'asc',
+        },
+      },
+    ],
   },
 };

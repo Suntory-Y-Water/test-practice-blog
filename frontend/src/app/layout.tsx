@@ -1,10 +1,12 @@
 import './globals.css';
-import type { Metadata } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
-import Header from './Header';
-import Footer from './Footer';
 import { Suspense } from 'react';
+
+import Footer from './Footer';
+import Header from './Header';
 import Loading from './loading';
+
+import type { Metadata } from 'next';
 
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
 
@@ -28,9 +30,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-
-
-
-
-
-
