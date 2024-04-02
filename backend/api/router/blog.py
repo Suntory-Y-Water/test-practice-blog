@@ -3,12 +3,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 import api.cruds.blog as blog_crud
 import api.schemas.blog as schema
+from fastapi.security import OAuth2PasswordBearer
 
 router = APIRouter()
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/blog", response_model=list[schema.Blog])
-async def read_all_blogs(db: AsyncSession = Depends(get_db)):
+async def read_all_blogs(db: AsyncSession = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     ブログを全件取得する
     """
