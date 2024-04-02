@@ -15,7 +15,7 @@ const CreateBlogPage = () => {
 
     setLoading(true);
 
-    await fetch(`${config.NEXT_PUBLIC_PYTHON_API_URL}/python/blog`, {
+    await fetch(`${config.NEXT_PUBLIC_PYTHON_API_URL}/blog`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,16 +35,22 @@ const CreateBlogPage = () => {
       <h2 className='text-2xl font-bold mb-4'>ブログ新規作成</h2>
       <form className='bg-slate-200 p-6 rounded font-bold' onSubmit={handleSubmit}>
         <div className='mb-4'>
-          <label className='text-gray-700 text-sm font-bold mb-2'>タイトル</label>
+          <label htmlFor='blog-title' className='text-gray-700 text-sm font-bold mb-2'>
+            タイトル
+          </label>
           <input
+            id='blog-title'
             type='text'
             className='shadow border-t rounded-md w-full py-2 px-3 text-base text-gray-700 leading-4 focus:outline-none'
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div className='mb-4'>
-          <label className='text-gray-700 text-sm font-bold mb-2'>本文</label>
+          <label htmlFor='blog-content' className='text-gray-700 text-sm font-bold mb-2'>
+            本文
+          </label>
           <textarea
+            id='blog-content'
             className='shadow border-t rounded-md w-full py-2 px-3 text-base text-gray-700 leading-4 focus:outline-none'
             onChange={(e) => setContent(e.target.value)}
           />

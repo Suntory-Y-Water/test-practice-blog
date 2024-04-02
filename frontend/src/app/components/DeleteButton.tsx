@@ -11,7 +11,7 @@ interface DeleteButtonProps {
 const DeleteButton = ({ id }: DeleteButtonProps) => {
   const router = useRouter();
   const handleDelete = async () => {
-    await fetch(`${config.NEXT_PUBLIC_PYTHON_API_URL}/python/blog/${id}`, {
+    await fetch(`${config.NEXT_PUBLIC_PYTHON_API_URL}/blog/${id}`, {
       method: 'DELETE',
     });
 
