@@ -1,15 +1,13 @@
-from uuid import UUID
 from api.db import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import APIRouter, Depends, HTTPException
-from fastapi import Response, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 import api.cruds.blog as blog_crud
 import api.schemas.blog as schema
 
 router = APIRouter()
 
 
-@router.get("/python/blog", response_model=list[schema.Blog])
+@router.get("/blog", response_model=list[schema.Blog])
 async def read_all_blogs(db: AsyncSession = Depends(get_db)):
     """
     ブログを全件取得する
@@ -17,8 +15,8 @@ async def read_all_blogs(db: AsyncSession = Depends(get_db)):
     return await blog_crud.get_all_blogs(db)
 
 
-@router.get("/python/blog/{blog_id}", response_model=schema.Blog)
-async def read_blog(blog_id: UUID, db: AsyncSession = Depends(get_db)):
+@router.get("/blog/{blog_id}", response_model=schema.Blog)
+async def read_blog(blog_id: str, db: AsyncSession = Depends(get_db)):
     """
     個別のブログを取得する
     """
@@ -28,7 +26,7 @@ async def read_blog(blog_id: UUID, db: AsyncSession = Depends(get_db)):
     return blog
 
 
-@router.post("/python/blog", response_model=schema.BlogCreateResponse)
+@router.post("/blog", response_model=schema.BlogCreateResponse)
 async def create_blog(blog_body: schema.BlogCreate, db: AsyncSession = Depends(get_db)):
     """
     ブログを作成する
@@ -36,8 +34,8 @@ async def create_blog(blog_body: schema.BlogCreate, db: AsyncSession = Depends(g
     return await blog_crud.create_blog(db, blog_body)
 
 
-@router.delete("/python/blog/{blog_id}", response_model=None)
-async def delete_blog(blog_id: UUID, db: AsyncSession = Depends(get_db)):
+@router.delete("/blog/{blog_id}", response_model=None)
+async def delete_blog(blog_id: str, db: AsyncSession = Depends(get_db)):
     """
     ブログを削除する。
     """
