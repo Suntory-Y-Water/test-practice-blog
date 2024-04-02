@@ -4,7 +4,7 @@ import { config } from '@/lib/config';
 import ArticleList from './components/ArticleList';
 
 export default async function Home() {
-  const res = await fetch(`${config.PYTHON_API_URL!}/blog`, { cache: 'no-store' });
+  const res = await fetch(`${config.PYTHON_API_URL!}/blog`, { next: { revalidate: 60 } });
   const articles: Article[] = (await res.json()) as Article[];
 
   return (
