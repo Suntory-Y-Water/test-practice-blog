@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 import api.cruds.blog as blog_crud
 import api.schemas.blog as schema
-import api.oauth as oauth
+import api.auth as oauth
 
 router = APIRouter()
 
